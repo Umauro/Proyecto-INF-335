@@ -34,12 +34,13 @@ class DataLoader:
             df_aux = self.df[['permalink','title','price','image','url','description']]
             values = [
                 # reemplazar " por ' para casos con ' en el email
-                "{}".format(value).replace(r'"', r"'")
+                "{}\n".format(value).replace(r'"', r"'")
                 if value else 'NULL'
                 for value in df_aux.itertuples(
                     index=False,
                     name=None)
             ]
+            
             if do_sql_upsert(
                 USER_DATA,
                 BD_DATA,

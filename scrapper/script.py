@@ -1,4 +1,5 @@
 from devir import DevirScrapper, DevirTransformer
+from skyship import SkyshipScrapper, SkyshipTransformer
 from dataloader import DataLoader, GAMES_UPSERT, PRICES_INSERT
 
 devir_scrapper = DevirScrapper()
@@ -8,3 +9,11 @@ df_devir = devir_transformer.transform_data()
 devir_dataloader = DataLoader(df_devir)
 devir_dataloader.upsert_games(GAMES_UPSERT)
 devir_dataloader.insert_price(PRICES_INSERT)
+
+skyship_scrapper = SkyshipScrapper()
+df_skyship = skyship_scrapper.get_contents()
+skyship_transformer = SkyshipTransformer(df_skyship)
+df_skyship = skyship_transformer.transform_data()
+skyship_dataloader = DataLoader(df_skyship)
+skyship_dataloader.upsert_games(GAMES_UPSERT)
+skyship_dataloader.insert_price(PRICES_INSERT)
