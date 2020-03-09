@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <ul class="list-group">
+    {% for result in results %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="card" style='width:100%;'>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h6><a href = "{{ url_for('games' ,permalink=result['_source']['permalink']) }}"> {{ result['_source']['title'] }} </a></h6>
+                        </div>
+                        <div class="col">
+                            <h6>Tienda: {{ result['_source']['permalink'].split('-')[0]}}</h6>
+                        </div>
+                        <div class="col">
+                            <h6>Precio: ${{ result['_source']['price']}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>{{ result['_source']['description'][:250]}}...</p>
+                </div>
+            </div>
+            
+            
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}

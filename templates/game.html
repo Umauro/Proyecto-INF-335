@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row pt-5">
+        <div class="col">
+            <img src="{{ game['data']['image'] }}" class="img-fluid" alt="Responsive image">
+        </div>
+        <div class="col">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title">{{ game['data']['title']}}</h5>
+                        </div>
+                        <div class="col">
+                            <h5 class="card-title">Fuente: {{ game['data']['permalink'].split('-')[0]}}</h5>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-justify">{{ game['data']['description'] }}.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title">Precio: ${{ game['data']['price'] }}</h5>
+                        </div>
+                        <div class="col">
+                            <a href="{{game['data']['url']}}" class="btn btn-primary">Ir a la tienda</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
