@@ -160,6 +160,7 @@ class DevirScrapper():
             )
             return None
 
+
 class DevirTransformer:
     def __init__(self,df):
         self.df = df
@@ -169,6 +170,14 @@ class DevirTransformer:
         self.df.date = self.df.date.dt.date
     def fill_description(self):
         self.df.description.fillna('SIN DESCRIPCIÓN',inplace=True)
+    def clean_description(self):
+        self.df.description = self.df.description.str.replace(u"\u201c",r'',regex=True)
+        self.df.description = self.df.description.str.replace(u"\u201d",r'',regex=True)
+        self.df.description = self.df.description.str.replace(u"\u2026",r'',regex=True)
+        self.df.description = self.df.description.str.replace(u"\u2019",r'',regex=True)
+        self.df.description = self.df.description.str.replace(u"\u2014",r'',regex=True)
+        self.df.description = self.df.description.str.replace(u"\u0155",r'',regex=True)
+        self.df.description = self.df.description.str.replace(r"\'",r'',regex=True)
     def drop_duplicates(self):
         self.df.drop_duplicates('permalink',keep='first',inplace=True)
     
@@ -176,6 +185,7 @@ class DevirTransformer:
         self.create_permalink()
         self.clean_date()
         self.fill_description()
+        self.clean_description()
         self.drop_duplicates()
         return self.df
 
