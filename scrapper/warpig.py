@@ -114,7 +114,7 @@ class WarpigScrapper:
                 product_dict['description'] = '\n '.join(description_p).replace(r'"','')
             else:
                 product_dict['description'] = 'Descripción no proporcionada.'
-
+            product_dict['url'] = page_url
             self.board_game_list.append(product_dict)
 
         except Exception as error:
@@ -170,6 +170,7 @@ class WarpigTransformer:
         self.df.description = self.df.description.str.replace(u"\u0155",r'',regex=True)
         self.df.description = self.df.description.str.replace(u"\u0155",r'',regex=True)
         self.df.description = self.df.description.str.replace(r"\xa0",r'',regex=True)
+        self.df.description = self.df.description.str.replace(r"\'","''",regex=True)
     def drop_duplicates(self):
         self.df.drop_duplicates('permalink',keep='first',inplace=True)
 
